@@ -1,3 +1,8 @@
+> [!NOTE]  
+> This is a fork of [Allusion](https://github.com/allusion-app/Allusion) with the aim of adding support for importing world data from the "VRChat" service via an unofficial API. i do not actively maintain this project, it is specifically made for a user base of very few nieche people.
+>
+> Our use case is as follows: Instead of manually downloading thumbnails and copying world information from vrchat.com, we instead just copy the world URL from the platform's website and paste it into a dialog within Allusion, which then downloads the world thumbnail and adds any notable EXIF data we can pull from the service.
+
 [![Build Status](https://travis-ci.com/allusion-app/Allusion.svg?token=a7yw4czL1Lye2zty617R&branch=master)](https://travis-ci.com/allusion-app/Allusion)
 
 <img alt="Allusion" src="./resources/images/helpcenter/logo-about-helpcenter-dark.jpg" width="250" />
