@@ -6,7 +6,7 @@ import { FileDTO } from 'src/api/file';
 import { IconSet, KeyCombo } from 'widgets';
 import { MenuButton, MenuRadioGroup, MenuRadioItem } from 'widgets/menus';
 import { getThumbnailSize } from '../ContentView/utils';
-import { MenuDivider, MenuSliderItem } from 'widgets/menus/menu-items';
+import { MenuDivider, MenuItem, MenuSliderItem } from 'widgets/menus/menu-items';
 import { useStore } from 'src/frontend/contexts/StoreContext';
 
 // Tooltip info
@@ -147,3 +147,41 @@ export const ThumbnailSizeSliderMenuItem = observer(() => {
     />
   );
 });
+
+export const VRChatCommand = () => {
+  const handleImportClick = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      const vrChatUrlPattern = /https:\/\/vrchat\.com\/home\/(?:world\/|launch\?worldId=)(wrld_[a-zA-Z0-9-]+)/;
+      const match = text.match(vrChatUrlPattern);
+
+      if (match) {
+        const worldId = match[1];
+        alert(`World ID: ${worldId}`);
+      } else {
+        alert('Please copy a VRChat world link into your clipboard and try again.');
+      }
+    } catch (err) {
+      console.error('Failed to read clipboard contents: ', err);
+      alert('An error occurred while reading the clipboard. Please try again.');
+    }
+  };
+
+  const { uiStore } = useStore();
+
+  return (
+    <MenuButton
+      icon={IconSet.VRCHAT}
+      text="VRChat"
+      tooltip="VRChat content panel"
+      id="__vrchat-menu"
+      menuID="__vrchat-options"
+    >
+      <MenuItem
+        icon={IconSet.IMPORT}
+        onClick={uiStore.toggleVRChatImport}
+        text="Import from VRChat"
+      />
+    </MenuButton>
+  );
+};

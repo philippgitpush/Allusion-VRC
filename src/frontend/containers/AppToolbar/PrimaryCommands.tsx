@@ -6,7 +6,7 @@ import { ToolbarButton } from 'widgets/toolbar';
 import { FileRemoval } from '../../components/RemovalAlert';
 import FileTagEditor from '../../containers/AppToolbar/FileTagEditor';
 import { useStore } from '../../contexts/StoreContext';
-import { SortCommand, ViewCommand } from './Menus';
+import { SortCommand, ViewCommand, VRChatCommand } from './Menus';
 import Searchbar from './Searchbar';
 
 const OutlinerToggle = observer(() => {
@@ -43,6 +43,8 @@ const PrimaryCommands = observer(() => {
         // Only show when not viewing missing files (so it is replaced by the Delete button)
         <FileTagEditor />
       )}
+
+      <VRChatCommand />
 
       <SortCommand />
 

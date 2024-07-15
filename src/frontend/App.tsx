@@ -18,6 +18,8 @@ import About from './containers/About';
 import { CustomThemeProvider } from './hooks/useCustomTheme';
 import { useClipboardImporter } from './hooks/useClipboardImporter';
 
+import VRChatImportDialog from './containers/VRChatImport';
+
 const PLATFORM = process.platform;
 
 const App = observer(() => {
@@ -64,6 +66,8 @@ const App = observer(() => {
             <About />
 
             <AdvancedSearchDialog />
+
+            <VRChatImportDialog />
 
             <CustomToaster />
           </ErrorBoundary>

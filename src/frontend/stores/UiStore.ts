@@ -160,6 +160,8 @@ class UiStore {
   @observable isMoveFilesToTrashOpen: boolean = false;
   /** Dialog to warn the user when he tries to open too many files externally */
   @observable isManyExternalFilesOpen: boolean = false;
+  /** VRChat Import Dialog */
+  @observable isVRChatImportOpen: boolean = false;
 
   // Selections
   // Observable arrays recommended like this here https://github.com/mobxjs/mobx/issues/669#issuecomment-269119270.
@@ -433,6 +435,14 @@ class UiStore {
 
   @action.bound closeAdvancedSearch(): void {
     this.isAdvancedSearchOpen = false;
+  }
+
+  @action.bound toggleVRChatImport(): void {
+    this.isVRChatImportOpen = !this.isVRChatImportOpen;
+  }
+
+  @action.bound closeVRChatImport(): void {
+    this.isVRChatImportOpen = false;
   }
 
   @action.bound toggleSearchMatchAny(): void {

@@ -113,6 +113,7 @@ import WARNING_FILL from 'resources/icons/warning-fill.svg';
 import WARNING_BROKEN_LINK from 'resources/icons/warning-broken-link.svg';
 import WARNING from 'resources/icons/warning.svg';
 import QUESTION_MARK from 'resources/icons/questionmark.svg';
+import VRCHAT from 'resources/icons/vrchat.svg';
 
 const toSvg = (src: any) => <SVG src={src} className="custom-icon" aria-hidden="true" />;
 
@@ -218,6 +219,7 @@ const IconSet = {
   WARNING_BROKEN_LINK: toSvg(WARNING_BROKEN_LINK),
   WARNING: toSvg(WARNING),
   QUESTION_MARK: toSvg(QUESTION_MARK),
+  VRCHAT: toSvg(VRCHAT),
 };
 
 export { IconSet, SVG };
