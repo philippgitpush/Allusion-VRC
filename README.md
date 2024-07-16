@@ -9,4 +9,4 @@ Allusion is a tool built for artists, aimed to help you organize your **Visual L
 
 ## Development
 
-[See original README.md](https://github.com/allusion-app/Allusion?tab=readme-ov-file#development)
+[See original README.md →](https://github.com/allusion-app/Allusion?tab=readme-ov-file#development)
