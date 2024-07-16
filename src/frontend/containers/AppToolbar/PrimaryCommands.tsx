@@ -62,7 +62,7 @@ export const SlideModeCommand = observer(() => {
 
   const [ compressionQuality, setCompressionQuality ] = useState(95);
 
-  const handleImageCompression = () => { // TODO }
+  const handleImageCompression = () => { }
 
   return (
     <>
@@ -104,7 +104,7 @@ export const SlideModeCommand = observer(() => {
 
         <MenuItem
           icon={IconSet.COMPRESS}
-          onClick={() => {}}
+          onClick={ handleImageCompression }
           text="Compress Image"
         />
       </MenuButton>
