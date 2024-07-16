@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { IconSet } from 'widgets';
 import { ToolbarButton } from 'widgets/toolbar';
@@ -8,9 +8,11 @@ import FileTagEditor from '../../containers/AppToolbar/FileTagEditor';
 import { useStore } from '../../contexts/StoreContext';
 import { SortCommand, ViewCommand, VRChatCommand } from './Menus';
 import Searchbar from './Searchbar';
+import { MenuButton, MenuRadioGroup, MenuRadioItem } from 'widgets/menus';
+import { MenuDivider, MenuItem, MenuSliderItem } from 'widgets/menus/menu-items';
 
 const OutlinerToggle = observer(() => {
-  const { uiStore } = useStore();
+  const { uiStore, fileStore } = useStore();
 
   return (
     <ToolbarButton
@@ -57,6 +59,11 @@ export default PrimaryCommands;
 
 export const SlideModeCommand = observer(() => {
   const { uiStore } = useStore();
+
+  const [ compressionQuality, setCompressionQuality ] = useState(95);
+
+  const handleImageCompression = () => { // TODO }
+
   return (
     <>
       <ToolbarButton
@@ -70,6 +77,37 @@ export const SlideModeCommand = observer(() => {
       <div className="spacer" />
 
       <FileTagEditor />
+
+      <MenuButton
+        icon={IconSet.COMPRESS}
+        menuID="__compress-imag-options"
+        id="__compress-image-menu"
+        text="Compress current image"
+        tooltip="Compress current image"
+      >
+        <MenuSliderItem
+          value={ compressionQuality }
+          label="Quality"
+          onChange={ setCompressionQuality }
+          id="quality"
+          options={[
+            { value: 25, label: '25%' },
+            { value: 50, label: '50%' },
+            { value: 75, label: '75%' }
+          ]}
+          min={ 0 }
+          max={ 100 }
+          step={ 25 }
+        />
+        
+        <br />
+
+        <MenuItem
+          icon={IconSet.COMPRESS}
+          onClick={() => {}}
+          text="Compress Image"
+        />
+      </MenuButton>
 
       <ToolbarButton
         icon={IconSet.INFO}
