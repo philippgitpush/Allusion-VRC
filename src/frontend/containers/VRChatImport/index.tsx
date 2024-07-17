@@ -3,7 +3,6 @@ import React, { useCallback, useRef, useState } from 'react';
 import { useStore } from 'src/frontend/contexts/StoreContext';
 import { Button, IconSet } from 'widgets';
 import { Dialog } from 'widgets/popovers';
-import ExifIO from 'common/ExifIO';
 
 import axios from 'axios';
 import path from 'path';
@@ -25,19 +24,27 @@ export const VRChatImportDialog = observer(() => {
   
       const savePath = path.join(outputPath, filename);
       fs.writeFileSync(savePath, Buffer.from(response.data));
+
+      const savedFile = fileStore.fileList.find(file => file.name === filename);
+
+      if (savedFile) {
+        uiStore.clearFileSelection();
+        uiStore.selectFile(savedFile);
+        uiStore.enableSlideMode();
+      }
   
-      console.log(`${pf} File ${filename} saved successfully to ${savePath}`);
+      console.log(`${pf} File "${filename}" saved successfully to "${savePath}"`);
     } catch (error) {
       console.error(`${pf} Error downloading file:`, error);
     }
   };
-  
+
   const fetchWorldData = async (worldId: string) => {
     try {
       const response = await axios.get(`https://vrchat.com/api/1/worlds/${worldId}`);
       const { name, authorName, imageUrl } = response.data;
   
-      console.log(`${pf} Matched World: ${name} by ${authorName}`);
+      console.log(`${pf} Matched World: "${name}" by "${authorName}"`);
   
       return { name, authorName, imageUrl };
     } catch (error) {
@@ -50,30 +57,6 @@ export const VRChatImportDialog = observer(() => {
     const match = url.match(vrChatUrlPattern);
     return match ? match[1] : null;
   };
-  
-  /* const checkDuplicate = async (worldId: string) => {
-    let match = false;
-  
-    for (const file of fileStore.fileList) {
-      const tagValues = await exifTool.readExifTags(file.absolutePath, ['CreatorWorkURL']);
-      const creatorWorkUrl = tagValues[0]?.toString();
-      
-      if (creatorWorkUrl) {
-        console.log(matchWorldIdFromUrl(creatorWorkUrl));
-
-        if (matchWorldIdFromUrl(creatorWorkUrl) === worldId) {
-          match = true;
-          break;
-        }
-      }
-    }
-  
-    if (match) {
-      console.log(`${pf} Already downloaded. Skipping ...`);
-    } else {
-      console.log(`${pf} LGTM! Download`);
-    }
-  }; */
 
   const handleImportAction = (url: string) => {
     const match = matchWorldIdFromUrl(url);
@@ -82,9 +65,8 @@ export const VRChatImportDialog = observer(() => {
       const worldId = match;
       console.log(`${pf} Match! World ID: ${worldId}`);
 
-      /* checkDuplicate(worldId); */
-
       saveToAllusion(worldId);
+
       uiStore.closeVRChatImport();
       //uiStore.enableSlideMode();
       uiStore.clearFileSelection();
@@ -97,8 +79,7 @@ export const VRChatImportDialog = observer(() => {
   const saveToAllusion = (worldId: string) => {
     fetchWorldData(worldId)
     .then(data => {
-      console.log(`${pf} Fetched World Data:`, data);
-      saveFileToLocation(data?.imageUrl, data?.name + '.jpg', locationStore.locationList[0].path)
+      saveFileToLocation(data?.imageUrl, data?.name  + '.png', locationStore.locationList[0].path);
     })
     .catch(error => {
       console.error(`${pf} Failed to fetch world data:`, error);

@@ -8,8 +8,8 @@ import FileTagEditor from '../../containers/AppToolbar/FileTagEditor';
 import { useStore } from '../../contexts/StoreContext';
 import { SortCommand, ViewCommand, VRChatCommand } from './Menus';
 import Searchbar from './Searchbar';
-import { MenuButton, MenuRadioGroup, MenuRadioItem } from 'widgets/menus';
-import { MenuDivider, MenuItem, MenuSliderItem } from 'widgets/menus/menu-items';
+import { MenuButton } from 'widgets/menus';
+import { MenuItem, MenuSliderItem } from 'widgets/menus/menu-items';
 
 const OutlinerToggle = observer(() => {
   const { uiStore, fileStore } = useStore();
@@ -58,11 +58,16 @@ const PrimaryCommands = observer(() => {
 export default PrimaryCommands;
 
 export const SlideModeCommand = observer(() => {
-  const { uiStore } = useStore();
+  const { uiStore, fileStore } = useStore();
 
-  const [ compressionQuality, setCompressionQuality ] = useState(95);
+  const [ compressionQuality, setCompressionQuality ] = useState(75);
 
-  const handleImageCompression = () => { }
+  const pf = '[VRChatImport]';
+
+  const handleImageCompression = async () => {
+    const currentFile = fileStore.fileList[uiStore.firstItem];
+    const imagePath = currentFile.absolutePath;
+  }
 
   return (
     <>
@@ -78,7 +83,7 @@ export const SlideModeCommand = observer(() => {
 
       <FileTagEditor />
 
-      <MenuButton
+      {/* <MenuButton
         icon={IconSet.COMPRESS}
         menuID="__compress-imag-options"
         id="__compress-image-menu"
@@ -107,7 +112,7 @@ export const SlideModeCommand = observer(() => {
           onClick={ handleImageCompression }
           text="Compress Image"
         />
-      </MenuButton>
+      </MenuButton> */}
 
       <ToolbarButton
         icon={IconSet.INFO}
